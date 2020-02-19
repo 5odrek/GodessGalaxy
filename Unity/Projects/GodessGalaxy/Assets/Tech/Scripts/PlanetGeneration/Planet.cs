@@ -56,6 +56,9 @@ public class Planet : MonoBehaviour
             
 
             terrainFaces[i] = new TerrainFace(meshFilters[i].sharedMesh, resolution, directions[i]);
+            meshObject.layer = gameObject.layer;
+            meshObject.AddComponent<MeshCollider>();
+            meshObject.GetComponent<MeshCollider>().convex = true;
         }
 
       
@@ -76,43 +79,5 @@ public class Planet : MonoBehaviour
         
     }
 
-    private void OnDrawGizmos()
-    {
-        
-        if(wayPoints != null)
-        {
-            for (int i = 0; i < wayPoints.Length; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        Gizmos.color = Color.red;
-                        break;
-                    case 1:
-                        Gizmos.color = Color.yellow;
-                        break;
-                    case 2:
-                        Gizmos.color = Color.green;
-                        break;
-                    case 3:
-                        Gizmos.color = Color.blue;
-                        break;
-                    case 4:
-                        Gizmos.color = Color.black;
-                        break;
-                    case 5:
-                        Gizmos.color = Color.magenta;
-                        break;
-                }
-                foreach (Vector3 points in wayPoints[i])
-                {
-                    Gizmos.DrawSphere(points, 0.02f);
-                }
-
-
-            }
-        }
-       
-
-    }
+   
 }

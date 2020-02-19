@@ -10,12 +10,13 @@ public class TerrainFace
     Vector3 axisA;
     Vector3 axisB;
 
-    public Vector3[,] wayPoints;
+    public Node[,] wayPoints;
 
     [Range(0,1)]
     public float planetRadius;
-    
 
+    public delegate void SendGrid(Node[,] gridToSend, int resolution);
+    public static event SendGrid onMeshCreated;
 
     public TerrainFace(Mesh mesh, int resolution, Vector3 localUp)
     {
@@ -31,7 +32,7 @@ public class TerrainFace
         Vector3[] vertices = new Vector3[resolution * resolution];
         int[] triangles = new int[(resolution - 1) * (resolution - 1)*6];
 
-        wayPoints = new Vector3[resolution, resolution];
+        wayPoints = new Node[resolution-1, resolution-1];
         int triangleIndex = 0;
 
         for (int y = 0; y < resolution; y++)
@@ -51,7 +52,7 @@ public class TerrainFace
 
                 if (x != resolution-1 && y != resolution - 1)
                 {
-                    wayPoints[x, y] = (pointOnUnitCube + (waypointPercent.x) * axisA + (waypointPercent.y) * axisB).normalized;
+                    wayPoints[x, y] = new Node((pointOnUnitCube + (waypointPercent.x) * axisA + (waypointPercent.y) * axisB).normalized, true);
 
                     triangles[triangleIndex] = i;
                     triangles[triangleIndex + 1] = i + resolution+1;
@@ -70,6 +71,8 @@ public class TerrainFace
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
+        
+        onMeshCreated(wayPoints, resolution-1);
     }
 
     
