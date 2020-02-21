@@ -100,18 +100,12 @@ public class CameraControls : MonoBehaviour
     {
         touchActualPosition = touchPos;
         pivotVectorEnd = CalculateRaycastHitpoint(touchActualPosition);
-        Debug.Log("start" + pivotVectorStart);
-        Debug.Log("end" + pivotVectorEnd);
-        if (Mathf.Abs(Vector3.Distance(touchStartPosition, touchActualPosition)) > touchDeadZone)
-        {
-            swipeSpeedModifier = Mathf.Clamp(Mathf.Abs(Vector3.Distance(pivotVectorStart, pivotVectorEnd)) * 10,0,5f);
-
-            
-            forwardRef = transform.forward;
-            onRotation = true;
-            pivot = pivotVectorStart - pivotVectorEnd;
-            RotatePlanet(pivot, rotSpeed * swipeSpeedModifier);
-        }
+        swipeSpeedModifier = Mathf.Clamp(Mathf.Abs(Vector3.Distance(pivotVectorStart, pivotVectorEnd)) * 10,0,5f);
+        forwardRef = transform.forward;
+        onRotation = true;
+        pivot = pivotVectorStart - pivotVectorEnd;
+        RotatePlanet(pivot, rotSpeed * swipeSpeedModifier);
+        
         pivotVectorStart = pivotVectorEnd;
 
     }

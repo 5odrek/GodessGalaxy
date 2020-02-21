@@ -5,15 +5,12 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     private Node[][,] grids;
-    int gridIndex;
+    int gridIndex = 0;
 
-    private void CopyWaypointsGrid(Node[,] gridToCopy, int resolution)
+    private void CopyWaypointsGrid(Node[,] gridToCopy, int gridSize)
     {
-            grids[gridIndex] = new Node[resolution, resolution];
+            grids[gridIndex] = new Node[gridSize, gridSize];
             System.Array.Copy(gridToCopy, grids[gridIndex], gridToCopy.Length);
-        Debug.Log(gridToCopy.Length + " source");
-        Debug.Log(grids[gridIndex].Length + " target");
-        Debug.Log(resolution * resolution + " res");
             gridIndex++;
     }
 
@@ -27,12 +24,17 @@ public class Grid : MonoBehaviour
     void Start()
     {
         grids = new Node[6][,];
+
+        for (int i = 0; i < grids.Length; i++)
+        {
+            grids[i] = new Node[0,0];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    
     }
 
     public Node[,] GetGrid(int index)
@@ -71,11 +73,9 @@ public class Grid : MonoBehaviour
 
                 foreach(Node n in grids[i])
                 {
-                    Gizmos.DrawSphere(n.GetNodeWorldPoint(), 0.02f);
+                   // Gizmos.DrawSphere(n.GetNodeWorldPoint(), 0.02f);
                 }
             }
         }
-
-
     }
 }

@@ -43,7 +43,7 @@ public class Planet : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
-            
+                
                 
                 GameObject meshObject = new GameObject("face " + faceID);
                 faceID++;
@@ -57,8 +57,13 @@ public class Planet : MonoBehaviour
 
             terrainFaces[i] = new TerrainFace(meshFilters[i].sharedMesh, resolution, directions[i]);
             meshObject.layer = gameObject.layer;
-            meshObject.AddComponent<MeshCollider>();
-            meshObject.GetComponent<MeshCollider>().convex = true;
+            
+            MeshCollider myMC = meshObject.AddComponent<MeshCollider>();
+            meshObject.GetComponent<MeshFilter>().sharedMesh.RecalculateBounds();
+            myMC.sharedMesh = null;
+            myMC.sharedMesh = meshObject.GetComponent<MeshFilter>().mesh;
+          
+
         }
 
       

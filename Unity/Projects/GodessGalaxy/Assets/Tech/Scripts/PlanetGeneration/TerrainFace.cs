@@ -18,6 +18,7 @@ public class TerrainFace
     public delegate void SendGrid(Node[,] gridToSend, int resolution);
     public static event SendGrid onMeshCreated;
 
+
     public TerrainFace(Mesh mesh, int resolution, Vector3 localUp)
     {
         this.mesh = mesh;
