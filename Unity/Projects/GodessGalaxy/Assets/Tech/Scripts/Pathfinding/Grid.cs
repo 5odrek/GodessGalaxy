@@ -73,7 +73,7 @@ public class Grid : MonoBehaviour
 
                 foreach(Node n in grids[i])
                 {
-                   // Gizmos.DrawSphere(n.GetNodeWorldPoint(), 0.02f);
+                   Gizmos.DrawSphere(n.GetNodeWorldPoint(), 0.02f);
                 }
             }
         }

@@ -122,17 +122,5 @@ public class CameraControls : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-        if (Input.touchCount > 0)
-        {
-            Gizmos.DrawSphere(pivotVectorStart, 0.1f);
-            Gizmos.DrawSphere(pivotVectorEnd, 0.1f);
-        }
-
-
-    }
-
+    
 }

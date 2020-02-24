@@ -19,8 +19,13 @@ public class Planet : MonoBehaviour
 
     private void Start()
     {
+  
         Initialize();
+        
         GenerateMesh();
+        Debug.Log("called");
+        GenerateCollider();
+        
     }
 
     void Initialize()
@@ -57,16 +62,18 @@ public class Planet : MonoBehaviour
 
             terrainFaces[i] = new TerrainFace(meshFilters[i].sharedMesh, resolution, directions[i]);
             meshObject.layer = gameObject.layer;
-            
-            MeshCollider myMC = meshObject.AddComponent<MeshCollider>();
-            meshObject.GetComponent<MeshFilter>().sharedMesh.RecalculateBounds();
-            myMC.sharedMesh = null;
-            myMC.sharedMesh = meshObject.GetComponent<MeshFilter>().mesh;
-          
-
         }
 
+
       
+    }
+
+    private void GenerateCollider()
+    {
+        
+        float colliderRadius = Vector3.Distance(transform.position, terrainFaces[0].wayPoints[0, 0].GetNodeWorldPoint());
+        SphereCollider mySC = gameObject.AddComponent<SphereCollider>();
+        mySC.radius = colliderRadius;
     }
 
     void GenerateMesh()
@@ -74,14 +81,7 @@ public class Planet : MonoBehaviour
         foreach (TerrainFace face in terrainFaces)
         {
             face.ConstructMesh();
-        }
-
-        for (int i = 0; i < terrainFaces.Length; i++)
-        {
-            System.Array.Copy(terrainFaces[i].wayPoints, wayPoints[i], resolution * resolution);
-        }
-
-        
+        } 
     }
 
    
